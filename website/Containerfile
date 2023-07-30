@@ -1,0 +1,11 @@
+# Use the Fedora Minimal base image
+FROM registry.fedoraproject.org/fedora-minimal:latest
+
+# Install Apache httpd
+RUN microdnf -y install httpd && microdnf clean all
+
+# Copy the HTML file
+COPY index.html /var/www/html/
+
+# Use httpd as the entrypoint, and run it in the foreground
+CMD [ "/usr/sbin/httpd", "-D", "FOREGROUND" ]
